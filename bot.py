@@ -13,7 +13,7 @@ BOT_TOKEN = environ.get('BOT_TOKEN')
 API_KEY = environ.get('API_KEY')
 API_URL = environ.get('API_URL')
 
-akbotz = Client('link shortener bot',
+add2list = Client('link shortener bot',
              api_id=API_ID,
              api_hash=API_HASH,
              bot_token=BOT_TOKEN,
@@ -22,14 +22,14 @@ akbotz = Client('link shortener bot',
 print("Developer: @ADD2LIST , Join & Share Channel")
 print("Bot is Started Now")
 
-@akbotz.on_message(filters.command('start') & filters.private)
+@add2list.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
     await message.reply(
         f"**Hi {message.chat.first_name}!**\n\n"
         "I'm Link Shortener bot. Just send me link and get short link, You can also send multiple links seperated by a space or enter.\n\n**Developer:** @ADD2LIST")
 
 
-@akbotz.on_message(filters.private & filters.text & filters.incoming)
+@add2list.on_message(filters.private & filters.text & filters.incoming)
 async def link_handler(bot, message):
     link_pattern = re.compile('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}', re.DOTALL)
     links = re.findall(link_pattern, message.text)
@@ -54,4 +54,4 @@ async def get_shortlink(link):
             return data["shortenedUrl"]
 
 
-akbotz.run()
+add2list.run()
